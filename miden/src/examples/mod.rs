@@ -176,3 +176,37 @@ where
         assert!(miden::verify(program_info, stack_inputs, outputs, proof).is_ok());
     }
 }
+
+
+#[cfg(test)]
+pub fn test_example_with_options<H>(example: Example<H>, fail: bool, options: ProvingOptions)
+where
+    H: Host,
+{
+    let Example {
+        program,
+        stack_inputs,
+        host,
+        num_outputs,
+        expected_result,
+    } = example;
+
+    let (mut outputs, proof) =
+        miden::prove(&program, stack_inputs.clone(), host, options).unwrap();
+
+    assert_eq!(
+        expected_result,
+        outputs.stack_truncated(num_outputs),
+        "Program result was computed incorrectly"
+    );
+
+    let kernel = miden::Kernel::default();
+    let program_info = ProgramInfo::new(program.hash(), kernel);
+
+    if fail {
+        outputs.stack_mut()[0] += 1;
+        assert!(miden::verify(program_info, stack_inputs, outputs, proof).is_err())
+    } else {
+        assert!(miden::verify(program_info, stack_inputs, outputs, proof).is_ok());
+    }
+}

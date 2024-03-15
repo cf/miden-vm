@@ -14,7 +14,7 @@ rust-version = "1.75"
 
 [features]
 concurrent = ["processor/concurrent", "std", "winter-prover/concurrent"]
-default = ["std"]
+default = ["std", "metal"]
 metal = ["dep:ministark-gpu", "dep:elsa", "dep:pollster", "concurrent", "std"]
 std = ["air/std", "processor/std", "winter-prover/std"]
 
