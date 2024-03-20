@@ -68,3 +68,13 @@ fn test_fib_example_fail() {
     let example = get_example(16);
     super::test_example(example, true);
 }
+
+
+#[cfg(not(target_family = "wasm"))]
+#[test]
+fn test_fib_example_async_recursive() {
+    use miden::ProvingOptions;
+
+    let example = get_example(16);
+    pollster::block_on(super::test_example_async_with_options(example, false, ProvingOptions::with_96_bit_security(true)));
+}

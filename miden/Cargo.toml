@@ -71,3 +71,7 @@ predicates = "3.0"
 test-utils = { package = "miden-test-utils", path = "../test-utils" }
 vm-core = { package = "miden-core", path = "../core", version = "0.8" }
 winter-fri = { package = "winter-fri", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover" }
+
+
+[target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
+pollster = "0.3.0"

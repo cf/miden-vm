@@ -16,5 +16,6 @@ pub use processor::{
 pub use prover::{
     math, prove, Digest, ExecutionProof, FieldExtension, HashFunction, InputError, ProvingOptions,
     StackOutputs, StarkProof, Word,
+    async_execution_prover::prove_async,
 };
 pub use verifier::{verify, VerificationError};
