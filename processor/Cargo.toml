@@ -26,11 +26,11 @@ std = ["vm-core/std", "winter-prover/std"]
 tracing = { version = "0.1", default-features = false, features = ["attributes"] }
 vm-core = { package = "miden-core", path = "../core", version = "0.8", default-features = false }
 miden-air = { package = "miden-air", path = "../air", version = "0.8", default-features = false }
-winter-prover = { package = "winter-prover", version = "0.8", default-features = false }
+winter-prover = { package = "winter-prover", default-features = false, git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover" }
 
 [dev-dependencies]
 logtest = { version = "2.0", default-features = false }
 miden-assembly = { package = "miden-assembly", path = "../assembly", version = "0.8", default-features = false }
 test-utils = { package = "miden-test-utils", path = "../test-utils" }
-winter-fri = { package = "winter-fri", version = "0.8" }
-winter-utils = { package = "winter-utils", version = "0.8" }
+winter-fri = { package = "winter-fri", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover" }
+winter-utils = { package = "winter-utils", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover" }
