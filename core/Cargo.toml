@@ -22,7 +22,7 @@ std = ["miden-crypto/std", "math/std", "winter-utils/std"]
 
 [dependencies]
 math = { package = "winter-math", default-features = false, git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover" }
-miden-crypto = { version = "0.8", default-features = false }
+miden-crypto = { version = "0.8", default-features = false, git = "https://github.com/QEDProtocol/crypto", branch = "async_prover" }
 winter-utils = { default-features = false, git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover" }
 
 [dev-dependencies]
