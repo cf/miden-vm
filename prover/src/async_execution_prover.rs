@@ -7,18 +7,17 @@ use processor::{
     math::{Felt, FieldElement},
     ExecutionTrace,
 };
-use tracing::instrument;
 use winter_prover::{
     async_prover::AsyncProver, matrix::ColMatrix, AuxTraceRandElements, ConstraintCompositionCoefficients, DefaultConstraintEvaluator, DefaultTraceLde, ProofOptions as WinterProofOptions, StarkDomain, TraceInfo, TracePolyTable
 };
 
 
 
+#[cfg(feature = "std")]
+use {std::time::Instant, winter_prover::Trace, tracing::{event, instrument, Level}};
+
 #[cfg(feature = "webgpu")]
 use crate::webgpu;
-
-#[cfg(feature = "std")]
-use {std::time::Instant, winter_prover::Trace};
 
 
 // EXPORTS

@@ -2,6 +2,9 @@
 #[cfg(not(feature = "std"))]
 extern crate alloc;
 
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+
 use air::{ProcessorAir, PublicInputs};
 use core::marker::PhantomData;
 use processor::{
@@ -11,7 +14,6 @@ use processor::{
     math::{Felt, FieldElement},
     ExecutionTrace,
 };
-use tracing::instrument;
 use winter_prover::{
     matrix::ColMatrix, AuxTraceRandElements, ConstraintCompositionCoefficients,
     DefaultConstraintEvaluator, DefaultTraceLde, ProofOptions as WinterProofOptions, Prover,
@@ -22,7 +24,7 @@ pub mod async_execution_prover;
 
 
 #[cfg(feature = "std")]
-use {std::time::Instant, winter_prover::Trace};
+use {std::time::Instant, winter_prover::Trace, tracing::{event, instrument, Level}};
 
 #[cfg(feature = "webgpu")]
 mod webgpu;
