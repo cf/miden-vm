@@ -1,6 +1,9 @@
 use air::Felt;
 use wgpu::util::DeviceExt;
 
+#[cfg(not(feature = "std"))]
+use core::vec::Vec;
+
 use super::helper::{get_dispatch_linear, WebGpuHelper};
 
 pub fn log2(n: usize) -> u32 {

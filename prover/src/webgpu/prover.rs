@@ -1,6 +1,9 @@
 //! This module contains GPU acceleration logic for Apple Silicon devices. For now the
 //! logic is limited to GPU accelerating RPO 256 trace commitments.
 
+#[cfg(not(feature = "std"))]
+use core::vec::Vec;
+
 use crate::{
     async_execution_prover::AsyncExecutionProver,
     webgpu::{absorb::WebGpuRpo256RowMajor, merkle::generate_merkle_tree_webgpu_rpo},

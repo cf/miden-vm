@@ -1,4 +1,6 @@
-#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(not(feature = "std"))]
+use core::vec::Vec;
 
 use air::{ProcessorAir, PublicInputs};
 use core::marker::PhantomData;
