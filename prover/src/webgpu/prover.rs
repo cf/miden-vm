@@ -2,7 +2,10 @@
 //! logic is limited to GPU accelerating RPO 256 trace commitments.
 
 #[cfg(not(feature = "std"))]
-use core::vec::Vec;
+use alloc::vec::Vec;
+
+#[cfg(not(feature = "std"))]
+use alloc::vec;
 
 use crate::{
     async_execution_prover::AsyncExecutionProver,

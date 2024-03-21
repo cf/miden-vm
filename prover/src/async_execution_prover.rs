@@ -1,7 +1,3 @@
-
-#[cfg(not(feature = "std"))]
-use core::vec::Vec;
-
 use air::{ProcessorAir, PublicInputs};
 use core::marker::PhantomData;
 use processor::{
@@ -11,7 +7,7 @@ use processor::{
     math::{Felt, FieldElement},
     ExecutionTrace,
 };
-use tracing::{event, instrument, Level};
+use tracing::instrument;
 use winter_prover::{
     async_prover::AsyncProver, matrix::ColMatrix, AuxTraceRandElements, ConstraintCompositionCoefficients, DefaultConstraintEvaluator, DefaultTraceLde, ProofOptions as WinterProofOptions, StarkDomain, TraceInfo, TracePolyTable
 };

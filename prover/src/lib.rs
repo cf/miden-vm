@@ -1,10 +1,6 @@
-#![cfg_attr(not(feature = "std"), no_std)]
 
 #[cfg(not(feature = "std"))]
 extern crate alloc;
-
-#[cfg(not(feature = "std"))]
-use core::vec::Vec;
 
 use air::{ProcessorAir, PublicInputs};
 use core::marker::PhantomData;
@@ -15,7 +11,7 @@ use processor::{
     math::{Felt, FieldElement},
     ExecutionTrace,
 };
-use tracing::{event, instrument, Level};
+use tracing::instrument;
 use winter_prover::{
     matrix::ColMatrix, AuxTraceRandElements, ConstraintCompositionCoefficients,
     DefaultConstraintEvaluator, DefaultTraceLde, ProofOptions as WinterProofOptions, Prover,
