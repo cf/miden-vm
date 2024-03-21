@@ -16,6 +16,7 @@ use winter_prover::{
 
 
 
+#[cfg(feature = "webgpu")]
 use crate::webgpu;
 
 #[cfg(feature = "std")]
@@ -95,8 +96,6 @@ where
             #[cfg(feature = "webgpu")]
             let prover = webgpu::prover::WebGPURpoExecutionProver(prover);
 
-            #[cfg(all(feature = "metal", target_arch = "aarch64", target_os = "macos"))]
-            let prover = gpu::MetalRpoExecutionProver(prover);
             prover.prove(trace).await
         }
     }

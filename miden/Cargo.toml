@@ -39,7 +39,7 @@ path = "tests/integration/main.rs"
 
 [features]
 concurrent = ["prover/concurrent", "std"]
-default = ["std", "webgpu"]
+default = ["std"]
 executable = ["dep:hex", "hex?/std", "std", "dep:serde", "serde?/std", "dep:serde_derive", "dep:serde_json", "serde_json?/std", "dep:clap", "dep:rustyline", "dep:tracing-subscriber"]
 metal = ["prover/metal", "std"]
 std = ["assembly/std", "processor/std", "prover/std", "verifier/std"]
