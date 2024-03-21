@@ -145,7 +145,7 @@ impl ExampleOptions {
 // ================================================================================================
 
 #[cfg(test)]
-pub fn test_example<H>(example: Example<H>, fail: bool)
+pub fn test_example_with_options<H>(example: Example<H>, fail: bool, options: ProvingOptions)
 where
     H: Host,
 {
@@ -158,7 +158,7 @@ where
     } = example;
 
     let (mut outputs, proof) =
-        miden::prove(&program, stack_inputs.clone(), host, ProvingOptions::default()).unwrap();
+        miden::prove(&program, stack_inputs.clone(), host, options).unwrap();
 
     assert_eq!(
         expected_result,
@@ -178,6 +178,15 @@ where
 }
 
 
+#[cfg(test)]
+pub fn test_example<H>(example: Example<H>, fail: bool)
+where
+    H: Host,
+{
+    test_example_with_options(example, fail, ProvingOptions::default())
+}
+
+
 
 #[cfg(test)]
 pub async fn test_example_async_with_options<H>(example: Example<H>, fail: bool, options: ProvingOptions)
@@ -194,7 +203,7 @@ where
 
     let (mut outputs, proof) =
         miden::prove_async(&program, stack_inputs.clone(), host, options).await.unwrap();
-        
+
     assert_eq!(
         expected_result,
         outputs.stack_truncated(num_outputs),

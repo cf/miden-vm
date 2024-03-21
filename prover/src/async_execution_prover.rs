@@ -11,10 +11,12 @@ use processor::{
 };
 use tracing::{event, instrument, Level};
 use winter_prover::{
-    async_prover::AsyncProver, matrix::ColMatrix, AuxTraceRandElements, ConstraintCompositionCoefficients, DefaultConstraintEvaluator, DefaultTraceLde, ProofOptions as WinterProofOptions, Prover, StarkDomain, TraceInfo, TracePolyTable
+    async_prover::AsyncProver, matrix::ColMatrix, AuxTraceRandElements, ConstraintCompositionCoefficients, DefaultConstraintEvaluator, DefaultTraceLde, ProofOptions as WinterProofOptions, StarkDomain, TraceInfo, TracePolyTable
 };
 
 
+
+use crate::webgpu;
 
 #[cfg(feature = "std")]
 use {std::time::Instant, winter_prover::Trace};
@@ -90,6 +92,9 @@ where
                 stack_inputs,
                 stack_outputs.clone(),
             );
+            #[cfg(feature = "webgpu")]
+            let prover = webgpu::prover::WebGPURpoExecutionProver(prover);
+
             #[cfg(all(feature = "metal", target_arch = "aarch64", target_os = "macos"))]
             let prover = gpu::MetalRpoExecutionProver(prover);
             prover.prove(trace).await
@@ -104,7 +109,7 @@ where
 // PROVER
 // ================================================================================================
 
-struct AsyncExecutionProver<H, R>
+pub struct AsyncExecutionProver<H, R>
 where
     H: ElementHasher<BaseField = Felt>,
     R: RandomCoin<BaseField = Felt, Hasher = H>,

@@ -26,7 +26,7 @@ processor = { package = "miden-processor", path = "../processor", version = "0.8
 tracing = { version = "0.1", default-features = false, features = ["attributes"] }
 winter-prover = { package = "winter-prover", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover", default-features = false }
 winter-crypto = { package = "winter-crypto", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover", default-features = false }
-wgpu = { version = "0.19.3", default-features = false, features = ["wgsl"], optional = true }
+wgpu = { version = "0.19.3", optional = true }
 bytemuck = { version = "1.15.0", optional = true }
 flume = { version = "0.11.0", optional = true }
 elsa = { version = "1.9", optional = true }

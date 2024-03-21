@@ -1,5 +1,10 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+#[cfg(not(feature = "std"))]
+#[macro_use]
+extern crate alloc;
+
+
 use air::{ProcessorAir, PublicInputs};
 use core::marker::PhantomData;
 use processor::{
@@ -17,6 +22,7 @@ use winter_prover::{
 };
 
 pub mod async_execution_prover;
+
 
 #[cfg(feature = "std")]
 use {std::time::Instant, winter_prover::Trace};
