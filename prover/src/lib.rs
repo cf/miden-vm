@@ -21,6 +21,9 @@ pub mod async_execution_prover;
 #[cfg(feature = "std")]
 use {std::time::Instant, winter_prover::Trace};
 
+#[cfg(feature = "webgpu")]
+mod webgpu;
+
 #[cfg(all(feature = "metal", target_arch = "aarch64", target_os = "macos"))]
 mod gpu;
 

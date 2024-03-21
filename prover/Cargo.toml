@@ -17,14 +17,22 @@ concurrent = ["processor/concurrent", "std", "winter-prover/concurrent"]
 default = ["std"]
 metal = ["dep:ministark-gpu", "dep:elsa", "dep:pollster", "concurrent", "std"]
 std = ["air/std", "processor/std", "winter-prover/std"]
+webgpu = ["dep:wgpu", "dep:flume", "dep:bytemuck", "dep:elsa", "dep:once_cell"]
+
 
 [dependencies]
 air = { package = "miden-air", path = "../air", version = "0.8", default-features = false }
 processor = { package = "miden-processor", path = "../processor", version = "0.8", default-features = false }
 tracing = { version = "0.1", default-features = false, features = ["attributes"] }
 winter-prover = { package = "winter-prover", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover", default-features = false }
+winter-crypto = { package = "winter-crypto", git = "https://github.com/QEDProtocol/winterfell", branch = "async_prover", default-features = false }
+wgpu = { version = "0.19.3", default-features = false, features = ["wgsl"], optional = true }
+bytemuck = { version = "1.15.0", optional = true }
+flume = { version = "0.11.0", optional = true }
+elsa = { version = "1.9", optional = true }
+once_cell = { version = "1.19.0", optional = true }
 
 [target.'cfg(all(target_arch = "aarch64", target_os = "macos"))'.dependencies]
-elsa = { version = "1.9", optional = true }
 ministark-gpu = { version = "0.3", features = [ "winterfell" ], optional = true }
 pollster = { version = "0.3", optional = true }
+

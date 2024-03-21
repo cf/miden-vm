@@ -39,10 +39,11 @@ path = "tests/integration/main.rs"
 
 [features]
 concurrent = ["prover/concurrent", "std"]
-default = ["std"]
+default = ["std", "webgpu"]
 executable = ["dep:hex", "hex?/std", "std", "dep:serde", "serde?/std", "dep:serde_derive", "dep:serde_json", "serde_json?/std", "dep:clap", "dep:rustyline", "dep:tracing-subscriber"]
 metal = ["prover/metal", "std"]
 std = ["assembly/std", "processor/std", "prover/std", "verifier/std"]
+webgpu = ["prover/webgpu"]
 
 [dependencies]
 assembly = { package = "miden-assembly", path = "../assembly", version = "0.8", default-features = false }
