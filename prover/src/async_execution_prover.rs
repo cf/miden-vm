@@ -17,8 +17,9 @@ use winter_prover::{
 use {std::time::Instant, winter_prover::Trace, tracing::{event, instrument, Level}};
 
 #[cfg(feature = "webgpu")]
-use crate::webgpu;
-
+use crate::webgpu_v2;
+//#[cfg(feature = "webgpu")]
+//use crate::webgpu;
 
 // EXPORTS
 // ================================================================================================
@@ -78,12 +79,19 @@ where
             stack_outputs.clone(),
         )
         .prove(trace).await,
-        HashFunction::Blake3_256 => AsyncExecutionProver::<Blake3_256, WinterRandomCoin<_>>::new(
-            options,
-            stack_inputs,
-            stack_outputs.clone(),
-        )
-        .prove(trace).await,
+        HashFunction::Blake3_256 => {
+            let prover = AsyncExecutionProver::<Blake3_256, WinterRandomCoin<_>>::new(
+                options,
+                stack_inputs,
+                stack_outputs.clone(),
+            );
+            #[cfg(feature = "webgpu")]
+            let prover = webgpu_v2::blake3::blake3_256_prover::get_webgpu_blake3_256_prover(prover);
+
+            prover.prove(trace).await
+
+    
+        },
         HashFunction::Rpo256 => {
             let prover = AsyncExecutionProver::<Rpo256, RpoRandomCoin>::new(
                 options,
@@ -91,7 +99,7 @@ where
                 stack_outputs.clone(),
             );
             #[cfg(feature = "webgpu")]
-            let prover = webgpu::prover::WebGPURpoExecutionProver(prover);
+            let prover = webgpu_v2::rescue::row_hasher_rpo::get_webgpu_rpo_prover(prover);
 
             prover.prove(trace).await
         }

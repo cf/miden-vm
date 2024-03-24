@@ -22,12 +22,18 @@ use winter_prover::{
 
 pub mod async_execution_prover;
 
+mod hwa;
 
 #[cfg(feature = "std")]
 use {std::time::Instant, winter_prover::Trace, tracing::{event, instrument, Level}};
 
+//#[cfg(feature = "webgpu")]
+//mod webgpu;
 #[cfg(feature = "webgpu")]
-mod webgpu;
+mod webgpu_v2;
+
+//#[cfg(feature = "webgpu")]
+//mod webgpu_blake3;
 
 #[cfg(all(feature = "metal", target_arch = "aarch64", target_os = "macos"))]
 mod gpu;
@@ -217,4 +223,26 @@ where
     ) -> Self::ConstraintEvaluator<'a, E> {
         DefaultConstraintEvaluator::new(air, aux_rand_elements, composition_coefficients)
     }
+}
+const fn mont_to_int(x: u64) -> (u32, u32) {
+    let (a, e) = x.overflowing_add(x << 32);
+    let b = a.wrapping_sub(a >> 32).wrapping_sub(e as u64);
+
+    let (r, c) = 0u64.overflowing_sub(b);
+    let res = r.wrapping_sub(0u32.wrapping_sub(c as u32) as u64);
+    (res as u32, (res >> 32) as u32)
+
+}
+fn select(false_value: u32, true_value: u32, condition: bool) -> u32{
+    if condition {
+        true_value
+    }else{
+        false_value
+    }
+}
+#[test]
+fn run_mont_test(){
+    let f = Felt::from_mont(16222914551949044509u64);
+    println!("f_mont: {}, f: {}",f.inner(), f.as_int());
+
 }

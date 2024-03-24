@@ -217,6 +217,10 @@ where
         outputs.stack_mut()[0] += 1;
         assert!(miden::verify(program_info, stack_inputs, outputs, proof).is_err())
     } else {
-        assert!(miden::verify(program_info, stack_inputs, outputs, proof).is_ok());
+        let result = miden::verify(program_info, stack_inputs, outputs, proof);
+        if result.is_err() {
+            println!("error: {}",&result.err().unwrap());
+            panic!("error verifying proof");
+        }
     }
 }

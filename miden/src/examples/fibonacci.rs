@@ -80,6 +80,27 @@ fn test_fib_example_async_recursive() {
 }
 
 
+
+
+
+#[cfg(not(target_family = "wasm"))]
+#[test]
+fn test_fib_example_async_b3_256() {
+    use miden::ProvingOptions;
+
+    let count = 8192*4;
+
+    let example = get_example(count);
+    pollster::block_on(super::test_example_async_with_options(example, false, ProvingOptions::with_128_bit_security(false)));
+
+    let example = get_example(count);
+    pollster::block_on(super::test_example_async_with_options(example, false, ProvingOptions::with_128_bit_security(false)));
+
+    let example = get_example(count);
+    pollster::block_on(super::test_example_async_with_options(example, false, ProvingOptions::with_128_bit_security(false)));
+}
+
+
 #[cfg(not(target_family = "wasm"))]
 #[test]
 fn test_fib_example_sync_recursive() {
@@ -88,3 +109,5 @@ fn test_fib_example_sync_recursive() {
     let example = get_example(8192);
     super::test_example_with_options(example, false, ProvingOptions::with_96_bit_security(true));
 }
+
+
